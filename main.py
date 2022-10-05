@@ -2,8 +2,31 @@ import random
 
 VOWELS = ["A","E","I","O","U","AA","EE","II","OO","UU"]
 CONSTS = ["B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","CH","SH","SCH","TS"]
+# https://www.quora.com/What-are-the-most-common-phonemes-among-all-language?share=1
 
 random.seed(2)
+
+def zipf(items, c=1):
+    """
+    Choose random item based on a zipf distribution
+    Relative frequency of first item based on C
+        c=1 - 25%
+        c=2 - 17%
+        c=3 - 12%
+        c=4 - 11%?
+              10
+              8.5
+              7
+              8
+    """
+    q = []
+    length = len(items)
+    for item in items:
+        r = round(length / c * 100)
+        for _ in range(r):
+            q.append(item)
+        c += 1
+    return random.choice(q)
 
 def chance(prob=50):
 	return random.randint(1,100) < prob
